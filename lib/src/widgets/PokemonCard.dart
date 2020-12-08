@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:pokedex/src/models/PokemonModel.dart';
+import 'package:pokedex/src/utils/Constanst.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +36,7 @@ class PokemonCard extends StatelessWidget {
               child: _pokeballBackground(),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+              margin: EdgeInsets.fromLTRB(20, 10, 30, 10),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,7 +49,8 @@ class PokemonCard extends StatelessWidget {
                     flex: 1,
                     child: Image.network(
                       pokemon.url,
-                      height: 50,
+                      height: 70,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ],
@@ -117,7 +119,7 @@ class PokemonCard extends StatelessWidget {
         _colors = [Color(0xFF343434), Color(0xFFB2B2B2)];
         break;
       case PokemonTypes.bug:
-        _colors = [Color(0xFFFFEC52), Color(0xFFE8FF63)];
+        _colors = [Color(0xFFDEC953), Color(0xFFE8FF63)];
         break;
     }
     return _colors;
@@ -135,6 +137,21 @@ class PokemonCard extends StatelessWidget {
     return result;
   }
 
+  List<Widget> _cardLabels() {
+    List<Widget> labels = [];
+    int typesInt = pokemon.types.length - 1;
+    for (int i = 0; i <= typesInt; i++) {
+      //In this case forEach or for in isn´t an option, becase we need the index
+      //to know when add a sizeBox as spacer
+      labels.add(PokemonTypeLabel(type: pokemon.types[i]));
+      if (i != typesInt)
+        labels.add(SizedBox(
+          width: 5,
+        ));
+    }
+    return labels;
+  }
+
   /* Need the pokemon model to know the name, number and types*/
   Widget _pokemonInfo() {
     return Column(
@@ -150,7 +167,7 @@ class PokemonCard extends StatelessWidget {
         ),
         Flexible(
           flex: 3,
-          child: Text(pokemon.name, style: _fontStyle(size: 22)),
+          child: Text(pokemon.name, style: _fontStyle(size: 18)),
         ),
         Spacer(
           flex: 3,
@@ -158,11 +175,9 @@ class PokemonCard extends StatelessWidget {
         Flexible(
           flex: 3,
           child: Row(
-            children: [
-              PokemonTypeLabel(
-                type: pokemon.types[0],
-              )
-            ],
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: _cardLabels(),
           ),
         ),
       ],
@@ -191,20 +206,18 @@ class PokemonTypeLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<dynamic> _colorAndText = _textAndColorChooser(type);
     final Color color = _colorAndText[0];
-    final String typeString = _colorAndText[1];
+    final String pokemonTypeString = _colorAndText[1];
     return Container(
-      constraints: BoxConstraints(
-        maxHeight: 25,
-        minWidth: 65,
-      ),
+      constraints: BoxConstraints(maxHeight: 25, minWidth: 60, maxWidth: 78),
+      width: (pokemonTypeString.length * 13).toDouble(),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
           color: Colors.white.withOpacity(0.3)),
       padding: EdgeInsets.symmetric(horizontal: 12),
       alignment: Alignment.center,
       child: Text(
-        typeString,
-        style: _fontStyle(color: color, size: 15),
+        pokemonTypeString,
+        style: _fontStyle(color: color, size: 12),
       ),
     );
   }
@@ -215,26 +228,6 @@ class PokemonTypeLabel extends StatelessWidget {
 
   List<dynamic> _textAndColorChooser(PokemonTypes t) {
     Color color;
-    final List<String> stringTypes = [
-      'Grass',
-      'Poison',
-      'Ice',
-      'Steel',
-      'Water',
-      'Rock',
-      'Psychic',
-      'Normal',
-      'Ground',
-      'Ghost',
-      'Flying',
-      'Fire',
-      'Fighting',
-      'Fairy',
-      'Electric',
-      'Dragon',
-      'Dark',
-      'Bug'
-    ];
     switch (t) {
       case PokemonTypes.grass:
         color = Color(0xFF3B5F3A);
@@ -291,6 +284,6 @@ class PokemonTypeLabel extends StatelessWidget {
         color = Color(0xFF8C9E26);
         break;
     }
-    return <dynamic>[color, stringTypes[t.index]];
+    return <dynamic>[color, pokemonTypesStringList[t.index]];
   }
 }

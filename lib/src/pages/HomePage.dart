@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/src/models/PokemonModel.dart';
+import 'package:pokedex/src/services/PokemonApiManager.dart';
 import 'package:pokedex/src/widgets/PokemonCard.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,15 +8,45 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String url =
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-vi/x-y/1.png';
-    final PokemonModel bulbasaur =
-        PokemonModel('Bulbasaur', url, 1, [PokemonTypes.ice, PokemonTypes.poison]);
+    PokemonApiManager apiManager = PokemonApiManager();
+    Size screen = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Center(
         child: Container(
-          child: PokemonCard(
-            pokemon: bulbasaur,
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: FutureBuilder(
+            future: apiManager.getFivePokemons(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data is List<Map<String, dynamic>>) {
+                var data = snapshot.data as List<Map<String, dynamic>>;
+                List<PokemonModel> pokemonList = [];
+                for (Map pokemonMap in data) {
+                  pokemonList.add(PokemonModel.fromMap(pokemonMap));
+                }
+                return Container(
+                  height: screen.height - 150,
+                  child: ListView.builder(
+                    itemCount: pokemonList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == pokemonList.length - 1) {
+                        return PokemonCard(pokemon: pokemonList[index]);
+                      } else {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            PokemonCard(pokemon: pokemonList[index]),
+                            SizedBox(height: 20)
+                          ],
+                        );
+                      }
+                    },
+                  ),
+                );
+              } else {
+                return Text('opps!');
+              }
+            },
           ),
         ),
       ),

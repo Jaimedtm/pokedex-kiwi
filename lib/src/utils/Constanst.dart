@@ -1,0 +1,20 @@
+final pokemonTypesStringList = [
+  'Grass',
+  'Poison',
+  'Ice',
+  'Steel',
+  'Water',
+  'Rock',
+  'Psychic',
+  'Normal',
+  'Ground',
+  'Ghost',
+  'Flying',
+  'Fire',
+  'Fighting',
+  'Fairy',
+  'Electric',
+  'Dragon',
+  'Dark',
+  'Bug'
+];
