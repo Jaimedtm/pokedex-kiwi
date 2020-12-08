@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="pokeball.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 36 36"
+   height="36mm"
+   width="36mm">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="-8"
+     inkscape:window-height="1017"
+     inkscape:window-width="1920"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="66.055388"
+     inkscape:cx="142.13311"
+     inkscape:zoom="2.8"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Capa 1">
+    <path
+       d="M 17.999999,0.500035 A 17.499999,17.499999 0 0 0 0.54473475,16.750205 H 8.0786428 a 10,10 0 0 1 9.9213562,-8.75037 10,10 0 0 1 9.921358,8.75037 h 7.533908 A 17.499999,17.499999 0 0 0 17.999999,0.500035 Z m -0.05374,9.99991 a 7.5,7.5 0 0 0 -7.446058,7.4998 A 7.5,7.5 0 0 0 18,25.500065 7.5,7.5 0 0 0 25.500318,17.999745 7.5,7.5 0 0 0 18,10.499945 a 7.5,7.5 0 0 0 -0.05374,0 z M 0.54473675,19.249795 A 17.499999,17.499999 0 0 0 18,35.499965 17.499999,17.499999 0 0 0 35.455265,19.249795 h -7.53339 A 10,10 0 0 1 18,28.000165 10,10 0 0 1 8.0786448,19.249795 Z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:0.228409;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.681967"
+       id="path835" />
+  </g>
+</svg>

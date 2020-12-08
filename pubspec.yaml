@@ -24,6 +24,7 @@ dependencies:
 
   cupertino_icons: ^1.0.0
   google_fonts: ^1.1.1
+  flutter_svg: ^0.19.2+1
   moor: ^3.4.0
   image_picker: ^0.6.7+14
 
@@ -36,5 +37,5 @@ flutter:
 
   assets:
      - res/
-     - res/img
-     - res/svg
+     - res/img/
+     - res/svg/
