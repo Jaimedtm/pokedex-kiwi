@@ -5,21 +5,27 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex/src/models/PokemonModel.dart';
 import 'package:pokedex/src/utils/functions.dart';
+import 'package:pokedex/src/widgets/FavoriteButton.dart';
 import 'package:pokedex/src/widgets/PokemonCard.dart';
 
-class DescriptionPage extends StatelessWidget {
+class DescriptionPage extends StatefulWidget {
   final PokemonModel pokemon;
   const DescriptionPage({@required this.pokemon, Key key}) : super(key: key);
 
   @override
+  _DescriptionPageState createState() => _DescriptionPageState();
+}
+
+class _DescriptionPageState extends State<DescriptionPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _backgroundColorChooser(pokemon.types[0]),
+      backgroundColor: _backgroundColorChooser(widget.pokemon.types[0]),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
-          _pokemonInfo(pokemon),
+          _pokemonInfo(widget.pokemon),
           Divider(
             color: Colors.white38,
             endIndent: 20,
@@ -27,8 +33,8 @@ class DescriptionPage extends StatelessWidget {
             height: 1,
             thickness: 3,
           ),
-          _statsInfo(pokemon),
-          _pokemonMoreInfo(pokemon)
+          _statsInfo(widget.pokemon),
+          _pokemonMoreInfo(widget.pokemon)
         ],
       ),
     );
@@ -132,7 +138,11 @@ class DescriptionPage extends StatelessWidget {
                   SizedBox(height: 20),
                   Row(
                     children: _cardLabels(),
-                  )
+                  ),
+                  SizedBox(height: 10),
+                  FavoriteButton(
+                      pokemon: widget.pokemon,
+                      color: _backgroundColorChooser(widget.pokemon.types[0]))
                 ],
               ),
               Spacer(
@@ -303,10 +313,10 @@ class DescriptionPage extends StatelessWidget {
 
   List<Widget> _cardLabels() {
     List<Widget> labels = [];
-    int typesInt = pokemon.types.length - 1;
+    int typesInt = widget.pokemon.types.length - 1;
     for (int i = 0; i <= typesInt; i++) {
       labels.add(PokemonTypeLabel(
-        type: pokemon.types[i],
+        type: widget.pokemon.types[i],
         transparent: false,
       ));
       if (i != typesInt)

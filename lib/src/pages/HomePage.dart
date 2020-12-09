@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex/src/models/PokemonModel.dart';
+import 'package:pokedex/src/pages/TrainerCardPage.dart';
 import 'package:pokedex/src/services/PokemonApiManager.dart';
 import 'package:pokedex/src/widgets/PokemonCard.dart';
+import 'package:pokedex/src/widgets/SlidePageRoute.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     PokemonApiManager apiManager = PokemonApiManager();
     Future pokemonsFuture = apiManager.getFivePokemons();
     Size screen = MediaQuery.of(context).size;
@@ -82,7 +89,7 @@ class HomePage extends StatelessWidget {
               },
             ),
           ),
-          _buttons(screen, pokemonsFuture),
+          _buttons(screen, context),
         ],
       ),
     );
@@ -92,7 +99,7 @@ class HomePage extends StatelessWidget {
     return GoogleFonts.montserrat(color: color, fontSize: size);
   }
 
-  Widget _buttons(Size screen, Future future) {
+  Widget _buttons(Size screen, BuildContext context) {
     return Container(
       height: 70,
       width: screen.width,
@@ -101,34 +108,19 @@ class HomePage extends StatelessWidget {
           Flexible(
             flex: 1,
             child: Container(
-              width: screen.width / 2,
+              width: screen.width,
               height: 150,
               child: FlatButton(
                 color: Colors.red[400],
                 child: Text(
-                  'Show more Pokemons',
-                  style: _fontStyle(size: screen.width / 25),
+                  'Trainer Card',
+                  style: _fontStyle(size: screen.width / 18),
                   textAlign: TextAlign.center,
                 ),
                 onPressed: () {
-                  future = null;
+                  Navigator.of(context)
+                      .push(SlideBottomPageRoute(TrainerCardPage()));
                 },
-              ),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Container(
-              width: screen.width / 2,
-              height: 150,
-              child: FlatButton(
-                color: Colors.red[300],
-                child: Text(
-                  'Trainer Card',
-                  style: _fontStyle(size: screen.width / 20),
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () {},
               ),
             ),
           ),
