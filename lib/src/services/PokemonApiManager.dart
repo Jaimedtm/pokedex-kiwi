@@ -11,9 +11,8 @@ class PokemonApiManager {
     return _instance;
   }
   PokemonApiManager._internal();
-
-  getAllPokemons() async {}
   Future<dynamic> getFivePokemons() async {
+    //TODO: Change the value in the for to get more pokemons
     List<Map<String, dynamic>> pokemonList = [];
     for (int i = 1; i <= 5; i++) {
       try {

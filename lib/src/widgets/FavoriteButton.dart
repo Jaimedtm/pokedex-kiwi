@@ -49,13 +49,11 @@ class _FavoriteButtonState extends State<FavoriteButton>
               _controller.reverse();
               db.deleteFavorite(widget.pokemon);
             });
-            print('algo2');
           } else {
             setState(() {
               _controller.forward();
               db.addFavorite(widget.pokemon);
             });
-            print('algo');
           }
         },
         child: AnimatedBuilder(
