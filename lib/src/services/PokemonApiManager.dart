@@ -15,13 +15,14 @@ class PokemonApiManager {
   getAllPokemons() async {}
   Future<dynamic> getFivePokemons() async {
     List<Map<String, dynamic>> pokemonList = [];
-    for (int i = 1; i <= 151; i++) {
+    for (int i = 1; i <= 5; i++) {
       try {
-        http.Response resp = await http.get(url + '$i');
+        http.Response resp = await http
+            .get(url + '$i')
+            .timeout(Duration(seconds: 10), onTimeout: () => throw 'Timeout error');
         if (resp.statusCode == 200) {
           Map<String, dynamic> result = jsonDecode(resp.body);
           pokemonList.add(result);
-          print('done $i');
         } else if (resp.statusCode >= 400) {
           throw FetchException(statuCode: resp.statusCode);
         }

@@ -1,7 +1,7 @@
 name: pokedex
 description: The best Pokedex that i can make!.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -26,17 +26,19 @@ dependencies:
   google_fonts: ^1.1.1
   flutter_svg: ^0.19.2+1
   image_picker: ^0.6.7+14
-  moor: ^3.4.0
+  moor_flutter: ^3.1.0
   http: ^0.12.2
 
 dev_dependencies:
+  test: ^1.15.7
   flutter_test:
     sdk: flutter
+  moor_generator: ^3.4.0
+  build_runner:
 flutter:
-
   uses-material-design: true
 
   assets:
-     - res/
-     - res/img/
-     - res/svg/
+    - res/
+    - res/img/
+    - res/svg/

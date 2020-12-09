@@ -1,10 +1,13 @@
 import 'dart:math';
 import 'package:pokedex/src/models/PokemonModel.dart';
+import 'package:pokedex/src/pages/DescriptionPage.dart';
 import 'package:pokedex/src/utils/Constanst.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pokedex/src/utils/functions.dart';
+import 'package:pokedex/src/widgets/SlidePageRoute.dart';
 
 class PokemonCard extends StatelessWidget {
   final PokemonModel pokemon;
@@ -12,52 +15,62 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        constraints: BoxConstraints(
-            minHeight: 100, maxHeight: 110, minWidth: 250, maxWidth: 320),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey[400], offset: Offset(0.5, 1.5), blurRadius: 3)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: _gradientColorChooser(pokemon.types[0])),
-        ),
-        child: Stack(
-          fit: StackFit.expand,
-          clipBehavior: Clip.antiAlias,
-          children: [
-            Positioned(
-              top: -15,
-              right: -20,
-              child: _pokeballBackground(),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 30, 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 3,
-                    child: _pokemonInfo(),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Image.network(
-                      pokemon.url,
-                      height: 70,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ],
+    return GestureDetector(
+      onTap: () => {
+        Navigator.of(context).push(SlidePageRoute(DescriptionPage(
+          pokemon: pokemon,
+        )))
+      },
+      child: Container(
+          constraints: BoxConstraints(
+              minHeight: 100, maxHeight: 110, minWidth: 250, maxWidth: 320),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey[400], offset: Offset(0.5, 1.5), blurRadius: 3)
+            ],
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: _gradientColorChooser(pokemon.types[0])),
+          ),
+          child: Stack(
+            fit: StackFit.expand,
+            clipBehavior: Clip.antiAlias,
+            children: [
+              Positioned(
+                top: -15,
+                right: -20,
+                child: _pokeballBackground(),
               ),
-            ),
-          ],
-        ));
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 10, 30, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: _pokemonInfo(),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        height: 80,
+                        child: FadeInImage(
+                          image: NetworkImage(pokemon.url),
+                          placeholder: AssetImage('res/img/pikachu.gif'),
+                          fadeInDuration: Duration(milliseconds: 250),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )),
+    );
   }
 
   TextStyle _fontStyle({Color color = Colors.white, double size = 18}) {
@@ -125,18 +138,6 @@ class PokemonCard extends StatelessWidget {
     return _colors;
   }
 
-  String _fixedIndex(int index) {
-    String result;
-    if (index > 99) {
-      result = '#$index';
-    } else if (index > 9) {
-      result = '#0$index';
-    } else {
-      result = '#00$index';
-    }
-    return result;
-  }
-
   List<Widget> _cardLabels() {
     List<Widget> labels = [];
     int typesInt = pokemon.types.length - 1;
@@ -159,7 +160,7 @@ class PokemonCard extends StatelessWidget {
       children: [
         Flexible(
           flex: 3,
-          child: Text(_fixedIndex(pokemon.index),
+          child: Text(fixedIndex(pokemon.index),
               style: _fontStyle(size: 15, color: Colors.white.withOpacity(0.7))),
         ),
         Spacer(
@@ -200,7 +201,9 @@ class PokemonCard extends StatelessWidget {
 
 class PokemonTypeLabel extends StatelessWidget {
   final PokemonTypes type;
-  PokemonTypeLabel({@required this.type, Key key}) : super(key: key);
+  final bool transparent;
+  PokemonTypeLabel({@required this.type, Key key, this.transparent = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +215,7 @@ class PokemonTypeLabel extends StatelessWidget {
       width: (pokemonTypeString.length * 13).toDouble(),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Colors.white.withOpacity(0.3)),
+          color: Colors.white.withOpacity(transparent ? 0.3 : 1)),
       padding: EdgeInsets.symmetric(horizontal: 12),
       alignment: Alignment.center,
       child: Text(
